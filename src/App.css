@@ -10,45 +10,6 @@
   margin: 0 auto;
 }
 
-.header {
-  grid-area: h;
-  background-color: green;
-}
 
-.header img {
-  width: 200px;
-  max-height: 100%;
-}
 
-.nav {
-  grid-area: n;
-  background-color: brown;
-  padding: 20px;
-}
 
-.nav > div {
-    margin-bottom: 10px;
-}
-
-.nav > div:last-child {
-  margin-top: 30px;
-}
-
-.nav a {
-  color: white;
-  text-decoration: none;
-
-}
-
-.nav a:hover {
-  text-decoration: underline;
-  font-weight: 500;
-}
-.content {
-  grid-area: c;
-  background-color: blue;
-}
-
-.content img {
-  width: 100%;
-}
