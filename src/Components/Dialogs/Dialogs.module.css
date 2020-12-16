@@ -4,12 +4,12 @@
 	grid-template-columns: 3fr 9fr;
 }
 
-.dialogsItems {
+.dialogsItems a {
 	padding: 10px;
 	color: #fff;
 }
 
-.active {
+.active a {
 	color: gold;
 }
 

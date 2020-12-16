@@ -1,8 +1,15 @@
+.postsBlock {
+	padding-top: 40px;
+}
+
 .posts {
 /*	text-align: center;*/
 /*	width: 100%;*/
-}
 
+}
+.form {
+	padding-bottom: 30px;
+}
 textarea {
 	width: 200px;
 	height: 100px;

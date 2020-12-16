@@ -1,0 +1,13 @@
+/*.content {
+  grid-area: c;
+  background-color: blue;
+  color: #fff;
+}*/
+
+.content img {
+  width: 100%;
+}
+
+.descriptionBlock {
+	padding: 10px;
+}
