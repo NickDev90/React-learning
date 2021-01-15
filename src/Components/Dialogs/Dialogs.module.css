@@ -1,7 +1,10 @@
 .dialogs {
 	font-size: 18px;
 	display: grid;
-	grid-template-columns: 3fr 9fr;
+	grid-template-columns: 5fr 3fr;
+	align-items: center;
+	justify-content: space-around;
+	padding: 50px 20px;
 }
 
 .dialogsItems a {
@@ -9,17 +12,54 @@
 	color: #fff;
 }
 
-.active a {
-	color: gold;
+.dialog_item {
+
+	text-decoration: none;	
+}
+.dialog_item img {
+	margin-right: 10px;
 }
 
-.dialog {
-	font-weight: bold;
+.member {
+	display: flex;
+	align-items: center;
 }
+
+/*.dialog {
+	display: flex;
+}*/
+
+.dialog .send_text {
+	display: none;
+}
+
+.dialog .active .send_text  {
+	display: block;
+}
+
+.dialog .active .send_text textarea {
+	color: black;
+	font-size: 16px;
+	font-weight: normal;
+	margin-bottom: -10px;
+}
+
+.dialog .active {
+	font-weight: bold;
+	color: gold;
+} 
 
 .messages {
-	padding: 10px;
+	
 	color: #000;
 }
 
-.message {}
+.message {
+	padding: 18px;
+}
+
+.dial_ava {
+	width: 40px;
+	border-radius: 50%;
+	background: transparent;
+}

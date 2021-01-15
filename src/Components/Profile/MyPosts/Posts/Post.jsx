@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './Post.module.css';
-
+ 
 
 const Post = (props) => {
 	return (      
@@ -8,7 +8,6 @@ const Post = (props) => {
       <img src="https://pbs.twimg.com/profile_images/1260620267069607937/KtV-UWQH.jpg" alt="" />
       <div>
         {props.message}
-        {props.text}
       </div>
 
       <div className={s.like}>
