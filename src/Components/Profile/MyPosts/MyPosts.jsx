@@ -4,19 +4,19 @@ import Post from './Posts/Post.jsx';
 
 const MyPosts = (props) => {
 
-let postsElements = props.posts.map(function(p) {
+let postsElements = props.profilePage.posts.map(function(p) {
   return <Post message={p.message} likesCount={p.likesCount} />;
 });
 
 let newPostElement = React.createRef();
 
 let addPostUI = () => {
-  props.addPost();
+  props.dispatch({type : 'ADD-POST'})
 }
 
 let onTextChange = () => {
   let textChange = newPostElement.current.value;
-  props.updateNewPostText (textChange);
+  props.dispatch ({type: 'UPDATE-NEW-POST-TEXT', newText: textChange});
 }
 
 
@@ -25,7 +25,7 @@ let onTextChange = () => {
 
         <div className={s.form}>
           <div>
-            <textarea ref={newPostElement} value={props.newPostText} onChange={onTextChange}/>
+            <textarea ref={newPostElement} value={props.profilePage.newPostText} onChange={onTextChange}/>
           </div>
           <div><button onClick= {addPostUI} >Add post</button></div>  
         </div>

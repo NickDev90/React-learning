@@ -10,7 +10,7 @@ const DialogItem = (props) => {
 
 	let send = () => {
 		  let text = newPostElement.current.value;
-		  props.sendMessage(text);
+		  props.dispatch({type: 'SEND-MESSAGE', writeMe: text});
 		  newPostElement.current.value = '';
 	}
 
