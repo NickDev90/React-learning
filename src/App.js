@@ -1,47 +1,39 @@
 import React from 'react';
 import {BrowserRouter, Route} from 'react-router-dom';
 import './App.css';
-import Header from './Components/Header/Header.jsx';
+import HeaderContainer from './Components/Header/HeaderContainer.jsx';
 import Navbar from './Components/Navbar/Navbar.jsx';
-import Profile from './Components/Profile/Profile.jsx';
-import Dialogs from './Components/Dialogs/Dialogs.jsx';
+import ProfileContainer from './Components/Profile/ProfileContainer.jsx';
+import DialogsContainer from './Components/Dialogs/DialogsContainer.jsx';
 import Feed from './Components/Feed/Feed.jsx';
 import Music from './Components/Music/Music.jsx';
 import Settings from './Components/Settings/Settings.jsx';
-import Friends from './Components/Navbar/Friends/Friends.jsx';
-
-
+import FriendsContainer from './Components/Friends/FriendsContainer.jsx';
 
 
 function App(props) {
-
-  // let posts = props.state.posts;
-
-  // let d_data = props.state.dialogsData;
-  // let m_data = props.state.messagesData;
-  
-  return (
-
+   return (
     <BrowserRouter>
       <div className="app-wrapper">
 
-        <Header/>
+        <HeaderContainer />
 
         <Navbar />
         
         <div className="app-wrapper-content">
-          <Route path='/profile' render={ () => 
-              <Profile profilePage={props.state.profilePage}
-                dispatch={props.dispatch} />} 
-          />
+          <Route path='/profile/:userId?' render={ () => 
+              <ProfileContainer /> }
+          /> 
           <Route path='/dialogs' render={ () =>
-              <Dialogs state={props.state.dialogsPage}
-                dispatch={props.dispatch}/>} 
+              <DialogsContainer  />} 
           />
+          <Route path='/friends' render={ () =>
+              <FriendsContainer />} />
+
           <Route path='/feed' component={Feed} />
           <Route path='/music' component={Music} />
           <Route path='/settings' component={Settings} />
-          <Route path='/friends' component={Friends} />
+          
     	</div>
 
       </div> 

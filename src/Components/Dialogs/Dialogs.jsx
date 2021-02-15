@@ -3,31 +3,36 @@ import s from './Dialogs.module.css';
 import {NavLink} from 'react-router-dom';
 import DialogItem from './DialogItem/DialogItem.jsx';
 import Message from './Message/Message.jsx';
+import {connect} from 'react-redux';
 
-
+ 
 
 const Dialogs = (props) => {
 
-	let dialogsElements = props.state.dialogsData.map( (dialog) => {
-		return <DialogItem name={dialog.name} id={dialog.id} 
-				src={dialog.src} dispatch={props.dispatch}/>
+	
+	let newMessageText = props.dialogsPage.newMessageText;
+
+
+	let dialogsElements = props.dialogsPage.dialogsData.map( (dialog) => {
+		return <DialogItem name={dialog.name} id={dialog.id} src={dialog.src}
+		 newMessageText={newMessageText} sendMessage={props.sendMessage}
+			onTextMessageChange={props.onTextMessageChange}/>
 	}); 
 
-	let messagesElements = props.state.messagesData.map(function(mess) {
+
+	let messagesElements = props.dialogsPage.messagesData.map(function(mess) {
 		return <Message message={mess.message} />
 	});
 
 	return (
 		<div className={s.dialogs}>
 			<div className={s.dialogsItems}>
-				{dialogsElements} 
+				{dialogsElements}
 			</div>
 			<div className={s.messages}>
 				{messagesElements}
 			</div>
-		</div>
-	
-		
+		</div>	
 	) 	
 }
 

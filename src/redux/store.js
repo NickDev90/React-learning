@@ -1,3 +1,10 @@
+import profileReducer from './profile-reducer.js';
+import dialogsReducer from './dialogs-reducer';
+import sidebarReducer from './sidebar-reducer.js';
+
+
+
+
 let store = {
 	_state : {
 		profilePage : {
@@ -28,7 +35,10 @@ let store = {
 			  {id: 5, message: 'How is your IT-Kamasutra?'},
 			  {id: 6, message: "It's very interesting now"},
 			],
-		}	
+			newMessageText: ''
+		},
+
+		sidebar : {}	
 	},
 	_callSubscriber() {
 		console.log("state changed")},
@@ -41,29 +51,60 @@ let store = {
 	},
 
 	dispatch (action) {
-		if (action.type === 'ADD-POST') {
-			let newPost = {
-				id : 6,
-				message : this._state.profilePage.newPostText,
-				likesCount : 0};
-		
-			this._state.profilePage.posts.push(newPost);
-			this._state.profilePage.newPostText = '';
-			this._callSubscriber(this._state);
-		} else if (action.type === 'UPDATE-NEW-POST-TEXT') {
-			this._state.profilePage.newPostText = action.newText;
-			this._callSubscriber(this._state);
-		} else if (action.type === 'SEND-MESSAGE') {
-			let newMessage = {
-				id : 7,
-				message : action.writeMe
-				};
-			this._state.dialogsPage.messagesData.push(newMessage);
-			this._callSubscriber(this._state);
-		}
+
+		this._state.profilePage = profileReducer(this._state.profilePage, action);
+		this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+		this._state.sidebar = sidebarReducer(this._state.sidebar, action);
+
+		this._callSubscriber(this._state);
 	}
 
-	// addPost () {
+} // store closes here 
+
+
+
+
+
+
+
+
+
+
+// 	if (action.type === 'ADD-POST') {
+	// 		let newPost = {
+	// 			id : 6,
+	// 			message : this._state.profilePage.newPostText,
+	// 			likesCount : 0};
+		
+	// 		this._state.profilePage.posts.push(newPost);
+	// 		this._state.profilePage.newPostText = '';
+	// 		this._callSubscriber(this._state);
+	// 	} else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+	// 		this._state.profilePage.newPostText = action.newText;
+	// 		this._callSubscriber(this._state);
+	// 	} else if (action.type === 'SEND-MESSAGE') {
+	// 		let newMessage = {
+	// 			id : 7,
+	// 			message : this._state.dialogsPage.newMessageText
+	// 			};
+
+	// 		this._state.dialogsPage.messagesData.push(newMessage);
+	// 		this._state.dialogsPage.newMessageText = '';
+	// 		this._callSubscriber(this._state);
+			
+	// 	} else if (action.type === 'UPDATE-NEW-MESSAGE-TEXT') {
+	// 		this._state.dialogsPage.newMessageText = action.newDiagText;
+	// 		this._callSubscriber(this._state);
+	// 	}
+	
+
+
+
+
+
+
+
+// addPost () {
 	// 	let newPost = {
 	// 		id : 6,
 	// 		message : this._state.profilePage.newPostText,
@@ -87,11 +128,6 @@ let store = {
 	// 	this._state.dialogsPage.messagesData.push(newMessage);
 	// 	this._callSubscriber(this._state);
 	// },
-	
-
-}
-
-
 // let reRenderEntireTree = () => {
 // 	console.log("state changed");
 // }

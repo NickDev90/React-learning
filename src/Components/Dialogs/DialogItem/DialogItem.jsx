@@ -1,6 +1,9 @@
 import React from 'react';
 import s from './../Dialogs.module.css';
 import {NavLink} from 'react-router-dom';
+import {connect} from 'react-redux';
+
+
 
 const DialogItem = (props) => {
 
@@ -10,8 +13,12 @@ const DialogItem = (props) => {
 
 	let send = () => {
 		  let text = newPostElement.current.value;
-		  props.dispatch({type: 'SEND-MESSAGE', writeMe: text});
-		  newPostElement.current.value = '';
+		  props.sendMessage(); 
+	}
+
+	let onTextChange = (e) => {
+		  let textChange = e.target.value;
+		  props.onTextMessageChange(textChange);
 	}
 
 	return <div className={s.dialog}>
@@ -21,12 +28,11 @@ const DialogItem = (props) => {
 					 	{props.name} 
 				 	</div>
 				 	<div className={s.send_text}>
-					  	<textarea ref={newPostElement} cols="20" rows="10"></textarea>
+					  	<textarea ref={newPostElement} cols="20" rows="10" 
+					  		onChange={onTextChange} value={props.newMessageText}></textarea>
 						<div><button onClick= {send} >Send message</button></div>
 					</div>
 				</NavLink> 
-
-				
 			</div>
 };
 

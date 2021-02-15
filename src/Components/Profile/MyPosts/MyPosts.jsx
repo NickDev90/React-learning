@@ -2,6 +2,7 @@ import React from 'react';
 import s from './MyPosts.module.css';
 import Post from './Posts/Post.jsx';
 
+
 const MyPosts = (props) => {
 
 let postsElements = props.profilePage.posts.map(function(p) {
@@ -10,13 +11,13 @@ let postsElements = props.profilePage.posts.map(function(p) {
 
 let newPostElement = React.createRef();
 
-let addPostUI = () => {
-  props.dispatch({type : 'ADD-POST'})
+let onAddPost = () => {
+  props.addPost();
 }
 
 let onTextChange = () => {
   let textChange = newPostElement.current.value;
-  props.dispatch ({type: 'UPDATE-NEW-POST-TEXT', newText: textChange});
+  props.updateNewPostText(textChange);
 }
 
 
@@ -27,22 +28,14 @@ let onTextChange = () => {
           <div>
             <textarea ref={newPostElement} value={props.profilePage.newPostText} onChange={onTextChange}/>
           </div>
-          <div><button onClick= {addPostUI} >Add post</button></div>  
+          <div><button onClick= {onAddPost} >Add post</button></div>  
         </div>
 
         <div className={s.posts}>
 
           {postsElements}
           
-{/*          <Post message={postData[0].message} likesCount={postData[0].likesCount}/>
-
-
-          <Post message={postData[1].message} likesCount={postData[1].likesCount}/>
-
-
-          <Post text="I'm trying React" likesCount='23'/>*/}
-
-        </div>
+         </div>
       </div>
   }
 
