@@ -3,19 +3,21 @@ import * as axios from 'axios';
 import {NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Friends from './Friends.jsx'
+import {friendsAPI} from './../../API/api.js'
 import Preloader from './Preloader/Preloader.jsx'
 import classes from './Friends.module.css'; 
-import {follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, setIsFetching} from './../../redux/friends-reducer.js'
+import {follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, setIsFetching, toggleFollowingProgress} from './../../redux/friends-reducer.js'
 
 
 class FriendsContainer extends React.Component {
 
 	componentDidMount () {
 				this.props.setIsFetching(true);
-				axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+				friendsAPI.getFriends(this.props.currentPage, this.props.pageSize).then(data => {
+					
 					this.props.setIsFetching(false);
-					this.props.setUsers(response.data.items);
-					this.props.setTotalUsersCount(response.data.totalCount);
+					this.props.setUsers(data.items);
+					this.props.setTotalUsersCount(data.totalCount);
 
 			})
 		
@@ -24,9 +26,11 @@ class FriendsContainer extends React.Component {
 	onPageChanged = (pageNumber) => {
 		this.props.setIsFetching(true);
 		this.props.setCurrentPage(pageNumber);
-		axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
+		// axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+		friendsAPI.pageChange(pageNumber, this.props.pageSize).then(data => {
+
 					this.props.setIsFetching(false);
-					this.props.setUsers(response.data.items);
+					this.props.setUsers(data.items);
 		})
 	}
 
@@ -38,7 +42,9 @@ class FriendsContainer extends React.Component {
 				 <Friends totalFriendsCount={this.props.totalFriendsCount}
 				pageSize={this.props.pageSize} currentPage={this.props.currentPage}
 				users={this.props.users} onPageChanged={this.onPageChanged}
-				follow={this.props.follow} unfollow={this.props.unfollow} />
+				follow={this.props.follow} unfollow={this.props.unfollow} 
+				toggleFollowingProgress={this.props.toggleFollowingProgress}
+				followingInProgress={this.props.followingInProgress}/>
 			
 			</div>
 	}
@@ -52,7 +58,8 @@ let mapStateToProps = (state) => {
 		pageSize: state.friendsPage.pageSize,
 		totalFriendsCount: state.friendsPage.totalFriendsCount,
 		currentPage: state.friendsPage.currentPage,
-		isFetching: state.friendsPage.isFetching
+		isFetching: state.friendsPage.isFetching,
+		followingInProgress: state.friendsPage.followingInProgress
 	}
 }
 
@@ -80,4 +87,4 @@ let mapStateToProps = (state) => {
 // }
 
 export default connect(mapStateToProps, {follow, unfollow, setUsers, 
-	setCurrentPage, setTotalUsersCount, setIsFetching})(FriendsContainer);
+	setCurrentPage, setTotalUsersCount, setIsFetching, toggleFollowingProgress})(FriendsContainer);
