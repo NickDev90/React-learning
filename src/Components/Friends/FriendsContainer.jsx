@@ -6,20 +6,24 @@ import Friends from './Friends.jsx'
 import {friendsAPI} from './../../API/api.js'
 import Preloader from './Preloader/Preloader.jsx'
 import classes from './Friends.module.css'; 
-import {follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, setIsFetching, toggleFollowingProgress} from './../../redux/friends-reducer.js'
+import {followSuccess, unfollowSuccess, setUsers, setCurrentPage, setTotalUsersCount, setIsFetching, 
+	toggleFollowingProgress, getUsersThunkCreator, follow, unfollow} from './../../redux/friends-reducer.js'
 
 
 class FriendsContainer extends React.Component {
 
 	componentDidMount () {
-				this.props.setIsFetching(true);
-				friendsAPI.getFriends(this.props.currentPage, this.props.pageSize).then(data => {
-					
-					this.props.setIsFetching(false);
-					this.props.setUsers(data.items);
-					this.props.setTotalUsersCount(data.totalCount);
 
-			})
+		this.props.getUsersThunkCreator(this.props.pageNumber, this.props.pageSize);
+
+			// 	this.props.setIsFetching(true);
+			// 	friendsAPI.getFriends(this.props.currentPage, this.props.pageSize).then(data => {
+					
+			// 		this.props.setIsFetching(false);
+			// 		this.props.setUsers(data.items);
+			// 		this.props.setTotalUsersCount(data.totalCount);
+
+			// })
 		
 	}
 		 
@@ -42,9 +46,8 @@ class FriendsContainer extends React.Component {
 				 <Friends totalFriendsCount={this.props.totalFriendsCount}
 				pageSize={this.props.pageSize} currentPage={this.props.currentPage}
 				users={this.props.users} onPageChanged={this.onPageChanged}
-				follow={this.props.follow} unfollow={this.props.unfollow} 
-				toggleFollowingProgress={this.props.toggleFollowingProgress}
-				followingInProgress={this.props.followingInProgress}/>
+				followingInProgress={this.props.followingInProgress}
+				follow={this.props.follow} unfollow={this.props.unfollow}/>
 			
 			</div>
 	}
@@ -86,5 +89,7 @@ let mapStateToProps = (state) => {
 // 	}
 // }
 
-export default connect(mapStateToProps, {follow, unfollow, setUsers, 
-	setCurrentPage, setTotalUsersCount, setIsFetching, toggleFollowingProgress})(FriendsContainer);
+export default connect(mapStateToProps, {followSuccess, unfollowSuccess, setUsers, 
+	setCurrentPage, setTotalUsersCount, setIsFetching, 
+	toggleFollowingProgress, getUsersThunkCreator, 
+	follow, unfollow})(FriendsContainer);

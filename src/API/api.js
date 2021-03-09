@@ -18,6 +18,21 @@ export const friendsAPI = {
 	pageChange (pageNumber, pageSize) {
 		return instance.get(`users?page=${pageNumber}&count=${pageSize}`)
 		.then(response => response.data)
+	},
+	getProfile(userId) {
+		return instance.get(`profile/${userId}`);
+	},
+	follow(userId) {
+		return instance.post(`follow/${userId}`, {}) 
+	},
+	unfollow(userId) {
+		return instance.delete(`follow/${userId}`)
+	}
+}
+
+export const authAPI = {
+	getMe () {
+		return instance.get(`auth/me`);
 	}
 }
 

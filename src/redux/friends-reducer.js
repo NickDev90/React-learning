@@ -1,3 +1,5 @@
+import {friendsAPI} from '../API/api.js'
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
@@ -27,9 +29,9 @@ let initialState = {
 // 			]
 // };
 
-export const follow = (userID) => ({type: FOLLOW, userID});
+export const followSuccess = (userID) => ({type: FOLLOW, userID});
 
-export const unfollow = (userID) => ({type: UNFOLLOW, userID});
+export const unfollowSuccess = (userID) => ({type: UNFOLLOW, userID});
 
 export const setUsers = (users) => ({type: SET_USERS, users});
 
@@ -42,7 +44,40 @@ export const setIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetch
 export const toggleFollowingProgress = (isFetching, userID) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userID});
 
 
+export const getUsersThunkCreator = (currentPage, pageSize) => (dispatch) => {
+		dispatch(setIsFetching(true));
+		friendsAPI.getFriends(currentPage, pageSize).then(data => {
+					
+			dispatch(setIsFetching(false));
+			dispatch(setUsers(data.items));
+			dispatch(setTotalUsersCount(data.totalCount));
+	})
+}
 
+export const follow = (userID) => (dispatch) => {
+	return  dispatch(toggleFollowingProgress(true, userID));
+                    
+                    friendsAPI.follow(userID)
+                      .then(response => {
+                        if (response.data.resultCode === 0) {
+                          dispatch(followSuccess(userID));
+                        }
+                        dispatch(toggleFollowingProgress(false, userID));
+            });
+}
+
+
+export const unfollow = (userID) => (dispatch) => {
+	return  dispatch(toggleFollowingProgress(true, userID));
+                    
+                    friendsAPI.unfollow(userID)
+                      .then(response => {
+                        if (response.data.resultCode === 0) {
+                          dispatch(unfollowSuccess(userID));
+                        }
+                        dispatch(toggleFollowingProgress(false, userID));
+            });
+}
 
 
 
