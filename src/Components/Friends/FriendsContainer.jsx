@@ -39,7 +39,6 @@ class FriendsContainer extends React.Component {
 	}
 
 	render() {
-		
 		return <div>
 				{ this.props.isFetching ? <Preloader /> : null}
 				 
@@ -52,7 +51,6 @@ class FriendsContainer extends React.Component {
 			</div>
 	}
 }
-
 
 
 let mapStateToProps = (state) => {
@@ -93,3 +91,5 @@ export default connect(mapStateToProps, {followSuccess, unfollowSuccess, setUser
 	setCurrentPage, setTotalUsersCount, setIsFetching, 
 	toggleFollowingProgress, getUsersThunkCreator, 
 	follow, unfollow})(FriendsContainer);
+
+

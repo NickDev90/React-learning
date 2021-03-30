@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './Dialogs.module.css';
 import {NavLink} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import DialogItem from './DialogItem/DialogItem.jsx';
 import Message from './Message/Message.jsx';
 import {connect} from 'react-redux';
@@ -23,6 +24,9 @@ const Dialogs = (props) => {
 	let messagesElements = props.dialogsPage.messagesData.map(function(mess) {
 		return <Message message={mess.message} />
 	});
+
+
+	if (!props.isAuthed)	return <Redirect to={"/login"} />
 
 	return (
 		<div className={s.dialogs}>

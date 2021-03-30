@@ -27,7 +27,8 @@ import {connect} from 'react-redux';
 
 function mapStateToProps (state) {
 	return {
-		dialogsPage: state.dialogsPage
+		dialogsPage: state.dialogsPage,
+		isAuthed: state.auth.isAuthed
 	}
 }
 
@@ -41,6 +42,7 @@ function mapDispatchToProps (dispatch) {
 		}
 	}
 }
+
 
 const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
 

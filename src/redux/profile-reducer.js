@@ -58,7 +58,6 @@ export const updateNewPostTextActionCreator = (textChange) =>
 export const setUserProfile = (profile) => ( {type: SET_USER_PROFILE, profile} );
 
 export const getUserProfile = (userId) => (dispatch) => {
-	debugger
 	friendsAPI.getProfile(userId).then(response => {
 		dispatch(setUserProfile(response.data));
 	});

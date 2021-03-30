@@ -55,7 +55,7 @@ export const getUsersThunkCreator = (currentPage, pageSize) => (dispatch) => {
 }
 
 export const follow = (userID) => (dispatch) => {
-	return  dispatch(toggleFollowingProgress(true, userID));
+	dispatch(toggleFollowingProgress(true, userID));
                     
                     friendsAPI.follow(userID)
                       .then(response => {
@@ -68,7 +68,7 @@ export const follow = (userID) => (dispatch) => {
 
 
 export const unfollow = (userID) => (dispatch) => {
-	return  dispatch(toggleFollowingProgress(true, userID));
+	dispatch(toggleFollowingProgress(true, userID));
                     
                     friendsAPI.unfollow(userID)
                       .then(response => {
