@@ -4,8 +4,11 @@ import Profile from './Profile.jsx';
 import * as axios from 'axios';
 import {connect} from 'react-redux';
 import thunk from 'redux-thunk';
-import {getUserProfile} from './../../redux/profile-reducer.js'
-import {friendsAPI} from '../../API/api.js'
+import {getUserProfile} from './../../redux/profile-reducer.js';
+import {friendsAPI} from '../../API/api.js';
+import {Redirect} from 'react-router-dom';
+import {withAuthRedirect} from './../../HOC/withAuthRedirect.js';
+import {compose} from 'redux';
 
 
 
@@ -21,18 +24,27 @@ class ProfileContainer extends React.Component {
 		this.props.getUserProfile(userId);
 	}
  
-	render() { 
+	render() {  
 		return <Profile {...this.props} profile={this.props.profile}/>
-
 	}
 }
 
+// compose(
+// 	connect(mapStateToProps, {getUserProfile})
+// 	withRouter,
+// 	withAuthRedirect
+// )(ProfileContainer)
+
+// let AuthRedirectComponent = withAuthRedirect(ProfileContainer); // H O C used
 
 let mapStateToProps = (state) => ({
 	profile: state.profilePage.profile,
-	isAuthed: state.auth.isAuthed
 })
 
-let WithUrlDataContainerComponent = withRouter(ProfileContainer);
+// let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent);
 
-export default connect (mapStateToProps, {getUserProfile})(WithUrlDataContainerComponent); 
+export default compose(
+	connect(mapStateToProps, {getUserProfile}),
+	withRouter,
+	withAuthRedirect
+)(ProfileContainer);

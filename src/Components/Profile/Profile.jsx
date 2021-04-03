@@ -10,7 +10,7 @@ import {Redirect} from 'react-router-dom';
 
 const Profile = (props) => {
 
-	if (!props.isAuthed) return <Redirect to={"/login"} />
+	// if (!props.isAuthed) return <Redirect to={"/login"} />
 	
 
 	return <div>
