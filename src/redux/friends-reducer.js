@@ -44,10 +44,11 @@ export const setIsFetching = (isFetching) => ({type: TOGGLE_IS_FETCHING, isFetch
 export const toggleFollowingProgress = (isFetching, userID) => ({type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userID});
 
 
-export const getUsersThunkCreator = (currentPage, pageSize) => (dispatch) => {
+export const getUsersThunkCreator = (page, pageSize) => (dispatch) => {
 		dispatch(setIsFetching(true));
-		friendsAPI.getFriends(currentPage, pageSize).then(data => {
-					
+		dispatch(setCurrentPage(page));
+
+		friendsAPI.getFriends(page, pageSize).then(data => {
 			dispatch(setIsFetching(false));
 			dispatch(setUsers(data.items));
 			dispatch(setTotalUsersCount(data.totalCount));

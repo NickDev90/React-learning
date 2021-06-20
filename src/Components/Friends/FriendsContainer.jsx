@@ -6,6 +6,8 @@ import Friends from './Friends.jsx'
 import {friendsAPI} from './../../API/api.js'
 import Preloader from './Preloader/Preloader.jsx'
 import classes from './Friends.module.css'; 
+import {getUsers, getPageSize, getCurrentPage, getIsFetching, getTotalFriendsCount,
+		 getFollowingInProgress} from './../../redux/user-selectors.js';
 import {followSuccess, unfollowSuccess, setUsers, setCurrentPage, setTotalUsersCount, setIsFetching, 
 	toggleFollowingProgress, getUsersThunkCreator, follow, unfollow} from './../../redux/friends-reducer.js'
 
@@ -53,16 +55,28 @@ class FriendsContainer extends React.Component {
 }
 
 
-let mapStateToProps = (state) => {
+// let mapStateToProps = (state) => {
+// 	return {
+// 		users: state.friendsPage.users,
+// 		pageSize: state.friendsPage.pageSize,
+// 		totalFriendsCount: state.friendsPage.totalFriendsCount,
+// 		currentPage: state.friendsPage.currentPage,
+// 		isFetching: state.friendsPage.isFetching,
+// 		followingInProgress: state.friendsPage.followingInProgress
+// 	}
+// }
+
+let mapStateToPropsNew = (state) => {
 	return {
-		users: state.friendsPage.users,
-		pageSize: state.friendsPage.pageSize,
-		totalFriendsCount: state.friendsPage.totalFriendsCount,
-		currentPage: state.friendsPage.currentPage,
-		isFetching: state.friendsPage.isFetching,
-		followingInProgress: state.friendsPage.followingInProgress
+		users: getUsers(state),
+		pageSize: getPageSize(state),
+		totalFriendsCount: getTotalFriendsCount(state),
+		currentPage: getCurrentPage(state),
+		isFetching: getIsFetching(state),
+		followingInProgress: getFollowingInProgress(state)
 	}
 }
+
 
 // let mapDispatchToProps = (dispatch) => {
 // 	return {
@@ -87,7 +101,7 @@ let mapStateToProps = (state) => {
 // 	}
 // }
 
-export default connect(mapStateToProps, {followSuccess, unfollowSuccess, setUsers, 
+export default connect(mapStateToPropsNew, {followSuccess, unfollowSuccess, setUsers, 
 	setCurrentPage, setTotalUsersCount, setIsFetching, 
 	toggleFollowingProgress, getUsersThunkCreator, 
 	follow, unfollow})(FriendsContainer);

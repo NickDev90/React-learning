@@ -8,7 +8,6 @@ const ProfileInfo = (props) => {
 	if (!props.profile) {
 		return <Preloader />
 	}
-
 	return <div>
 {/*  	        <div> 
             <img src="https://asiatec.sg/wp-content/uploads/2016/09/nature-1000x600.jpg" alt=""/>
@@ -16,7 +15,8 @@ const ProfileInfo = (props) => {
           <div className={s.descriptionBlock}>
             <img src={props.profile.photos.large} alt="" />
           </div>
-          <ProfileStatus profile={props.profile}/>
+          <ProfileStatus profile={props.profile} status={props.status}
+                  updateStatus={props.updateStatus}/>
     </div>
 
 }

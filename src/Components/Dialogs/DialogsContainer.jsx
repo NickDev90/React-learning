@@ -36,8 +36,8 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
 	return {
-		sendMessage: () => {
-			dispatch(sendMessageCreator())
+		sendMessage: (messageByReduxForm) => {
+			dispatch(sendMessageCreator(messageByReduxForm))
 		},
 		onTextMessageChange: (textChange) => {
 			dispatch(updateNewMessageTextCreator(textChange))

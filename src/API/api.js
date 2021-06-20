@@ -3,6 +3,7 @@ import * as axios from 'axios';
 
 // const baseUrl = 'https://social-network.samuraijs.com/api/1.0/';
 
+
 const instance = axios.create({
 	withCredentials: true,
 	baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -20,8 +21,9 @@ export const friendsAPI = {
 		.then(response => response.data)
 	},
 	getProfile(userId) {
-		return instance.get(`profile/${userId}`);
-	},
+		console.warn("Це застарілий метод. Використовуйте аналогічний метод, який міститься в об'єкті profileAPI");
+		return profileAPI.getProfile(userId);
+	}, // this is an obsolete method
 	follow(userId) {
 		return instance.post(`follow/${userId}`) 
 	},
@@ -30,10 +32,28 @@ export const friendsAPI = {
 	}
 }
 
+export const profileAPI = {
+	getProfile(userId) {
+		return instance.get(`profile/${userId}`);
+	},
+	getStatus(userId) {
+		return instance.get(`profile/status/${userId}`);
+	},
+	updateStatus(status) {
+		return instance.put(`profile/status`, {status: status});
+	}
+}
+
 export const authAPI = {
 	getMe () {
 		return instance.get(`auth/me`);
-	}
+	},
+	logIn (email, password, rememberMe = false) {
+		return instance.post(`auth/logIn`, {email, password, rememberMe})
+	},
+	logOut () {
+		return instance.delete(`auth/logIn`)
+	},
 }
 
 // export const getFriends = (currentPage, pageSize) => {

@@ -24,7 +24,7 @@ let initialState = {
 			  {id: 5, message: 'How is your IT-Kamasutra?'},
 			  {id: 6, message: "It's very interesting now"},
 			],
-		newMessageText: ''
+		// newMessageText: ''
 }
 	
 const dialogsReducer = (state = initialState, action) => {
@@ -33,13 +33,13 @@ const dialogsReducer = (state = initialState, action) => {
 		case SEND_MESSAGE: 
 			let newMessage = {
 				id : 7,
-				message : state.newMessageText
+				message : action.newMessageText
 				};
 
 			return {
 				...state, 
 				messagesData: [...state.messagesData, newMessage],
-				newMessageText: ''
+				// newMessageText: ''
 			};
 					
 		case UPDATE_NEW_MESSAGE_TEXT:

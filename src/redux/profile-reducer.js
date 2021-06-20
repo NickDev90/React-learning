@@ -1,9 +1,10 @@
-import {friendsAPI} from '../API/api.js'
+import {friendsAPI, profileAPI} from '../API/api.js'
 
 
 const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+// const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const SET_USER_STATUS = 'SET_USER_STATUS';
 
 
 let initialState = {
@@ -13,9 +14,10 @@ let initialState = {
 			  {id: 3, message: "I'm trying React", likesCount: 23},
 			  {id: 4, message: "I know something", likesCount: 12},
 			  {id: 5, message: "Let's practice in React!", likesCount: 55}
-			],
-			newPostText : "hello React ho ho ho" },
-			profile: null
+			]
+		},
+			profile: null,
+			status: ""
 
 const profileReducer = (state = initialState, action) => {
 	
@@ -23,20 +25,20 @@ const profileReducer = (state = initialState, action) => {
 		case ADD_POST: 
 			let newPost = {
 				id : 6,
-				message : state.newPostText,
+				message : action.newPostTextForm,
 				likesCount : 0};
 
 			return {
 				...state,
 				posts: [...state.posts, newPost],
-				newPostText: ""
+				// newPostText: ""
 			}
 
-		case UPDATE_NEW_POST_TEXT:
-			return {
-				...state,
-				newPostText: action.newText
-			}
+		// case UPDATE_NEW_POST_TEXT:
+		// 	return {
+		// 		...state,
+		// 		newPostText: action.newText
+		// 	}
 
 		case SET_USER_PROFILE:
 			return {
@@ -44,22 +46,44 @@ const profileReducer = (state = initialState, action) => {
 				profile: action.profile
 			}
 
+		case SET_USER_STATUS:
+			return {
+				...state,
+				status: action.status
+			}
+
 		default:
 			return state;
 	}
 }
 
-export const addPostActionCreator = () => ( {type: ADD_POST} );
+export const addPostActionCreator = (newPostTextForm) => ( {type: ADD_POST, newPostTextForm} );
 
-export const updateNewPostTextActionCreator = (textChange) => 
-	( { type: UPDATE_NEW_POST_TEXT,
-    	newText: textChange } );
+// export const updateNewPostTextActionCreator = (textChange) => 
+// 	( { type: UPDATE_NEW_POST_TEXT,
+//     	newText: textChange } );
 
 export const setUserProfile = (profile) => ( {type: SET_USER_PROFILE, profile} );
 
 export const getUserProfile = (userId) => (dispatch) => {
 	friendsAPI.getProfile(userId).then(response => {
 		dispatch(setUserProfile(response.data));
+	});
+};
+
+export const setUserStatus = (status) => ( {type: SET_USER_STATUS, status} );
+
+export const getStatus = (userId) => (dispatch) => {
+	profileAPI.getStatus(userId).then(response => {
+		dispatch(setUserStatus(response.data));
+	});
+};
+
+export const updateStatus = (status) => (dispatch) => { //this is a Thunk
+	profileAPI.updateStatus(status).then(response => {
+		if (response.data.resultCode === 0) {
+			dispatch(setUserStatus(status));
+		}
 	});
 };
 

@@ -6,7 +6,7 @@ import DialogItem from './DialogItem/DialogItem.jsx';
 import Message from './Message/Message.jsx';
 import {connect} from 'react-redux';
 
- 
+  
 
 const Dialogs = (props) => {
 
