@@ -15,7 +15,7 @@ class ProfileStatus extends React.Component {
     }) // this is a right method to change the local state
 
     // this.state.editMode = true;
-    // this.forceUpdate(); // ---!!! it is recommended do not use this method
+    // this.forceUpdate(); // ---!!! it is not recommended to use this method
   }
 
   deActivateEditMode = () => {
@@ -39,6 +39,7 @@ class ProfileStatus extends React.Component {
       })
     }
     console.log('componentDidUpdate');
+    debugger
   }
 
   render() {

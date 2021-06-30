@@ -6,7 +6,7 @@ import Friends from './Friends.jsx'
 import {friendsAPI} from './../../API/api.js'
 import Preloader from './Preloader/Preloader.jsx'
 import classes from './Friends.module.css'; 
-import {getUsers, getPageSize, getCurrentPage, getIsFetching, getTotalFriendsCount,
+import {getUsers, getUsersSuper, getPageSize, getCurrentPage, getIsFetching, getTotalFriendsCount,
 		 getFollowingInProgress} from './../../redux/user-selectors.js';
 import {followSuccess, unfollowSuccess, setUsers, setCurrentPage, setTotalUsersCount, setIsFetching, 
 	toggleFollowingProgress, getUsersThunkCreator, follow, unfollow} from './../../redux/friends-reducer.js'
@@ -41,6 +41,8 @@ class FriendsContainer extends React.Component {
 	}
 
 	render() {
+		console.log('Render friends');
+
 		return <div>
 				{ this.props.isFetching ? <Preloader /> : null}
 				 
@@ -67,8 +69,10 @@ class FriendsContainer extends React.Component {
 // }
 
 let mapStateToPropsNew = (state) => {
+	console.log('selector works');
+
 	return {
-		users: getUsers(state),
+		users: getUsersSuper(state),
 		pageSize: getPageSize(state),
 		totalFriendsCount: getTotalFriendsCount(state),
 		currentPage: getCurrentPage(state),

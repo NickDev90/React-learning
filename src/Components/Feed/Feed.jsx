@@ -1,7 +1,27 @@
 import React from 'react';
 import s from './Feed.module.css'
 
+// let localTime = new Date().toLocaleTimeString();
+
+
+// console.log(typeof localTime)
+
+// let state = {
+// 	time: localTime
+// }
+
 class Feed extends React.Component {
+
+	// state = {
+	//     time: localTime
+ //  	}
+
+ //  	timeUpdating = () => {
+ //  		setTimeout( ()=>this.state.time, 1000)
+ //  	}
+
+  	
+
 
 // 	function tick() {
 //   const element = (
@@ -20,21 +40,25 @@ class Feed extends React.Component {
 		// setInterval(this.render, 1000);
 	}
 
+	componentDidUpdate() {
+		console.log('did update')
+	}
+
 	render() {
 		return (
 		<div>
 			<h1>Feed</h1>
 
 	      <h1>Привет, мир!</h1>
-	      <h2>Сейчас {new Date().toLocaleTimeString()}.</h2>
+	      <h2>Сейчас { new Date().toLocaleTimeString() } </h2>
 
 		</div>
 		) 	
 	}
 
-	// setInterval(this.render, 1000);
+
 }
 
-// setInterval(Feed.render, 1000);
+
 
 export default Feed;

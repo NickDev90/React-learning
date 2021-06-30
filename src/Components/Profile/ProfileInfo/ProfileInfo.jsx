@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './ProfileInfo.module.css';
 import Preloader from './../../Friends/Preloader/Preloader.jsx'
-import ProfileStatus from '../ProfileStatus/ProfileStatus'
+import ProfileStatusWihtHooks from '../ProfileStatus/ProfileStatusWithHooks.js'
 
 const ProfileInfo = (props) => {
 
@@ -15,7 +15,7 @@ const ProfileInfo = (props) => {
           <div className={s.descriptionBlock}>
             <img src={props.profile.photos.large} alt="" />
           </div>
-          <ProfileStatus profile={props.profile} status={props.status}
+          <ProfileStatusWihtHooks profile={props.profile} status={props.status}
                   updateStatus={props.updateStatus}/>
     </div>
 
