@@ -23,13 +23,17 @@ class App extends React.Component {
     this.props.initializeApp();
   }
 
+  componentDidUpdate() {
+    console.log('App did update')
+  }
+
   render() {
     if (!this.props.initialized) {
       return <Preloader />
     }
 
    return (
-    <BrowserRouter>
+
       <div className="app-wrapper">
 
         <HeaderContainer />
@@ -54,9 +58,7 @@ class App extends React.Component {
           
     	</div>
 
-      </div> 
-    </BrowserRouter>
-        
+      </div>   
    );
  }
 }

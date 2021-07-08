@@ -5,7 +5,7 @@ import s from './Post.module.css';
 const Post = (props) => {
 	return (      
     <div className={s.item}>
-      <img src="https://pbs.twimg.com/profile_images/1260620267069607937/KtV-UWQH.jpg" alt="" />
+      <img src="https://www.mcicon.com/wp-content/uploads/2021/01/People_User_1-copy-4.jpg" alt="" />
       <div>
         {props.message}
       </div>

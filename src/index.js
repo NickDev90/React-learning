@@ -5,12 +5,7 @@ import * as serviceWorker from './serviceWorker';
 import './index.css';
 import App from './App';
 import store from './redux/redux-store';
-// import {addPost, updateNewPostText, sendMessage, subscribe} from './redux/state';
 import {Provider} from 'react-redux';
-
-// setInterval( () => {
-// 	store.dispatch({type: 'FAKE'})
-// }, 1000)
 
 
 let reRenderEntireTree = (state) => {

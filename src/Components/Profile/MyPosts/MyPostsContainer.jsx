@@ -27,8 +27,9 @@ import {connect} from 'react-redux';
 // }
 
 function mapStateToProps (state) {
+	// console.log('MyPosts mapStateToProps');
 	return {
-		profilePage: state.profilePage
+		posts: state.profilePage.posts
 	}
 }
 

@@ -6,7 +6,7 @@ import Friends from './Friends.jsx'
 import {friendsAPI} from './../../API/api.js'
 import Preloader from './Preloader/Preloader.jsx'
 import classes from './Friends.module.css'; 
-import {getUsers, getUsersSuper, getPageSize, getCurrentPage, getIsFetching, getTotalFriendsCount,
+import {getUsers, getPageSize, getCurrentPage, getIsFetching, getTotalFriendsCount,
 		 getFollowingInProgress} from './../../redux/user-selectors.js';
 import {followSuccess, unfollowSuccess, setUsers, setCurrentPage, setTotalUsersCount, setIsFetching, 
 	toggleFollowingProgress, getUsersThunkCreator, follow, unfollow} from './../../redux/friends-reducer.js'
@@ -15,29 +15,20 @@ import {followSuccess, unfollowSuccess, setUsers, setCurrentPage, setTotalUsersC
 class FriendsContainer extends React.Component {
 
 	componentDidMount () {
-
-		this.props.getUsersThunkCreator(this.props.pageNumber, this.props.pageSize);
-
-			// 	this.props.setIsFetching(true);
-			// 	friendsAPI.getFriends(this.props.currentPage, this.props.pageSize).then(data => {
-					
-			// 		this.props.setIsFetching(false);
-			// 		this.props.setUsers(data.items);
-			// 		this.props.setTotalUsersCount(data.totalCount);
-
-			// })
-		
+		let {pageNumber, pageSize} = this.props;
+		this.props.getUsersThunkCreator(pageNumber, pageSize);
 	}
 		 
 	onPageChanged = (pageNumber) => {
+		// this.props.getUsersThunkCreator(pageNumber, this.props.pageSize)
+
 		this.props.setIsFetching(true);
 		this.props.setCurrentPage(pageNumber);
-		// axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
-		friendsAPI.pageChange(pageNumber, this.props.pageSize).then(data => {
-
-					this.props.setIsFetching(false);
-					this.props.setUsers(data.items);
-		})
+		friendsAPI.pageChange(pageNumber, this.props.pageSize)
+			.then(data => {
+				this.props.setIsFetching(false);
+				this.props.setUsers(data.items);
+			})
 	}
 
 	render() {
@@ -56,23 +47,11 @@ class FriendsContainer extends React.Component {
 	}
 }
 
-
-// let mapStateToProps = (state) => {
-// 	return {
-// 		users: state.friendsPage.users,
-// 		pageSize: state.friendsPage.pageSize,
-// 		totalFriendsCount: state.friendsPage.totalFriendsCount,
-// 		currentPage: state.friendsPage.currentPage,
-// 		isFetching: state.friendsPage.isFetching,
-// 		followingInProgress: state.friendsPage.followingInProgress
-// 	}
-// }
-
 let mapStateToPropsNew = (state) => {
 	console.log('selector works');
 
 	return {
-		users: getUsersSuper(state),
+		users: getUsers(state),
 		pageSize: getPageSize(state),
 		totalFriendsCount: getTotalFriendsCount(state),
 		currentPage: getCurrentPage(state),

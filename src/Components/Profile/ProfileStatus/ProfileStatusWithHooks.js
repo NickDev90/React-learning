@@ -1,12 +1,15 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import s from '../ProfileInfo/ProfileInfo.module.css';
 // import Preloader from './../../Friends/Preloader/Preloader.jsx'
 
 const ProfileStatusWithHooks = (props) => {
-    let doubleClick = () => console.log('double click');
 
     let [editMode, setEditMode] = useState(false);
     let [locStatus, setLocStatus] = useState(props.status);
+
+    useEffect ( () => {
+        setLocStatus(props.status);
+    }, [props.status])
 
     const activateEditMode = () => {
         setEditMode(true);

@@ -26,9 +26,13 @@ const NewPostFormRedux = reduxForm({
   form: 'newPost'
 })(NewPostForm);
 
-const MyPosts = (props) => {
 
-  let postsElements = props.profilePage.posts.map(function(p) {
+
+const MyPosts = (props) => {
+  console.log('render MyPosts component');
+  console.log(props);
+  
+  let postsElements = props.posts.map(function(p) {
     return <Post message={p.message} likesCount={p.likesCount} />;
   });
 
@@ -47,7 +51,7 @@ const MyPosts = (props) => {
     props.addPost(formData.WriteNewPost);
     // console.log(formData.WriteNewPost);
     formData.WriteNewPost = '';
-    debugger
+
   }
 
 
@@ -65,7 +69,7 @@ const MyPosts = (props) => {
 
         <div className={s.posts}>
 
-          {postsElements}
+          {postsElements.reverse()}
           
          </div>
       </div>
