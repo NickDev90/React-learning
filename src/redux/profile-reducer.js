@@ -78,7 +78,7 @@ export const getStatus = (userId) => async (dispatch) => {
 }
 
 export const updateStatus = (status) => async (dispatch) => { //this is a Thunk
-	let response = profileAPI.updateStatus(status)
+	let response = await profileAPI.updateStatus(status)
 	if (response.data.resultCode === 0) {
 		dispatch(setUserStatus(status));
 	}
