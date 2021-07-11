@@ -1,20 +1,24 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import {BrowserRouter, Route, withRouter} from 'react-router-dom';
 import './App.css';
 import HeaderContainer from './Components/Header/HeaderContainer.jsx';
 import Navbar from './Components/Navbar/Navbar.jsx';
 import ProfileContainer from './Components/Profile/ProfileContainer.jsx';
-import DialogsContainer from './Components/Dialogs/DialogsContainer.jsx';
+// import DialogsContainer from './Components/Dialogs/DialogsContainer.jsx';
 import Feed from './Components/Feed/Feed.jsx';
 import Music from './Components/Music/Music.jsx';
 import Login from './Components/Login/Login.jsx';
 import Settings from './Components/Settings/Settings.jsx';
-import FriendsContainer from './Components/Friends/FriendsContainer.jsx';
+// import FriendsContainer from './Components/Friends/FriendsContainer.jsx';
 import Preloader from './Components/Friends/Preloader/Preloader.jsx';
 // import Preloader from './redux/auth-reducer.js';
 import {connect} from 'react-redux';
 import {compose} from 'redux';
 import {initializeApp} from './redux/app-reducer.js'
+
+const FriendsContainer = React.lazy(()=> import('./Components/Friends/FriendsContainer.jsx'));
+const DialogsContainer = React.lazy(()=> import('./Components/Dialogs/DialogsContainer.jsx'));
+// const ProfileContainer = React.lazy(()=> import('./Components/Profile/ProfileContainer.jsx'));
 
 
 class App extends React.Component {
@@ -35,7 +39,7 @@ class App extends React.Component {
    return (
 
       <div className="app-wrapper">
-
+      <Suspense fallback={Preloader}>
         <HeaderContainer />
 
         <Navbar />
@@ -44,6 +48,7 @@ class App extends React.Component {
           <Route path='/profile/:userId?' render={ () => 
               <ProfileContainer /> }
           /> 
+
           <Route path='/dialogs' render={ () =>
               <DialogsContainer  />} 
           />
@@ -57,7 +62,7 @@ class App extends React.Component {
               <Login />} />
           
     	</div>
-
+      </Suspense>
       </div>   
    );
  }

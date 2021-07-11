@@ -6,6 +6,8 @@ import Friends from './Friends.jsx'
 import {friendsAPI} from './../../API/api.js'
 import Preloader from './Preloader/Preloader.jsx'
 import classes from './Friends.module.css'; 
+import Paginator from './../common/Paginator/Paginator.js'
+
 import {getUsers, getPageSize, getCurrentPage, getIsFetching, getTotalFriendsCount,
 		 getFollowingInProgress} from './../../redux/user-selectors.js';
 import {followSuccess, unfollowSuccess, setUsers, setCurrentPage, setTotalUsersCount, setIsFetching, 
@@ -35,6 +37,9 @@ class FriendsContainer extends React.Component {
 		console.log('Render friends');
 
 		return <div>
+				<Paginator totalItemsCount={this.props.totalFriendsCount} pageSize={this.props.pageSize}
+				currentPage={this.props.currentPage} onPageChanged={this.onPageChanged} portionSize={20}/>
+
 				{ this.props.isFetching ? <Preloader /> : null}
 				 
 				 <Friends totalFriendsCount={this.props.totalFriendsCount}

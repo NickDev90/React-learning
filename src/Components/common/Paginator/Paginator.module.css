@@ -1,0 +1,33 @@
+.paginator {
+	margin: 10px auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.pageNumber {
+	padding: 2px;
+	text-align: center;
+	border: 1px solid grey;
+}
+
+.selectedPage {
+	font-weight: bold;
+	color: #000;
+}
+
+.prevArrow {
+	content: '';
+	display: block;
+	width: 20px;
+	height: 20px;
+	background: url('./../../../assets/images/4829860_arrow_back_left_icon.png') 0 0/ cover no-repeat;
+}
+
+.nextArrow {
+	content: '';
+	display: block;
+	width: 20px;
+	height: 20px;
+	background: url('./../../../assets/images/4829859_arrow_next_right_icon.png') 0 0/ cover no-repeat;
+}
