@@ -23,3 +23,7 @@
 	color: #ccc;
 	letter-spacing: 1px;
 }
+
+.userPhoto {
+	max-width: 200px;
+}

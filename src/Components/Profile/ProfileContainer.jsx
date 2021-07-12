@@ -4,7 +4,7 @@ import Profile from './Profile.jsx';
 import * as axios from 'axios';
 import {connect} from 'react-redux';
 import thunk from 'redux-thunk';
-import {getUserProfile, getStatus, updateStatus} from './../../redux/profile-reducer.js';
+import {getUserProfile, getStatus, updateStatus, savePhoto} from './../../redux/profile-reducer.js';
 import {friendsAPI} from '../../API/api.js';
 import {Redirect} from 'react-router-dom';
 import {withAuthRedirect} from './../../HOC/withAuthRedirect.js';
@@ -13,9 +13,7 @@ import {compose} from 'redux';
 
 
 class ProfileContainer extends React.Component {
-
-	componentDidMount() {
-		
+	refreshProfile() {
 		let userId = this.props.match.params.userId; 
 		if (!userId) {
 			userId = this.props.authorizedUserId;
@@ -23,16 +21,29 @@ class ProfileContainer extends React.Component {
 				this.props.history.push('login') // Страратися не використовувати
 				//цей метод, оскільки він втручається в ЖЦ компоненти
 			}
-
 		}
-
 		this.props.getUserProfile(userId);
 		this.props.getStatus(userId);
+		console.log('refreshProfile')
+	}
+
+	componentDidMount() {
+		this.refreshProfile();
+	}
+
+	componentDidUpdate(prevProps, prevState, snapshot) {
+		if(this.props.match.params.userId != prevProps.match.params.userId) {
+			this.refreshProfile();
+
+		}
+		console.log('profile container did update')		
 	}
  
 	render() {  
+		console.log('profile container was rendered')
 		return <Profile {...this.props} profile={this.props.profile}
-				status={this.props.status} updateStatus={this.props.updateStatus}/>
+				status={this.props.status} updateStatus={this.props.updateStatus}
+				isOwner={!this.props.match.params.userId} savePhoto={this.props.savePhoto}/>
 	}
 }
 
@@ -54,7 +65,7 @@ let mapStateToProps = (state) => ({
 // let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent);
 
 export default compose(
-	connect(mapStateToProps, {getUserProfile, getStatus, updateStatus}),
+	connect(mapStateToProps, {getUserProfile, getStatus, updateStatus, savePhoto}),
 	withRouter,
 	withAuthRedirect
 )(ProfileContainer);
