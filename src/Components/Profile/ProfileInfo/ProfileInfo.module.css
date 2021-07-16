@@ -27,3 +27,21 @@
 .userPhoto {
 	max-width: 200px;
 }
+
+.fullInfo {
+	font-size: 18px;
+}
+
+.contactsList {
+	padding-left: 20px;
+	font-weight: normal;
+	font-size: 16px;
+}
+
+
+.formSummaryError {
+	border: 1px solid red;
+	padding: 5px;
+	color: red;
+	max-width: 30%;
+}

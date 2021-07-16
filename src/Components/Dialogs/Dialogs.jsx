@@ -17,12 +17,12 @@ const Dialogs = (props) => {
 	let dialogsElements = props.dialogsPage.dialogsData.map( (dialog) => {
 		return <DialogItem name={dialog.name} id={dialog.id} src={dialog.src}
 		 newMessageText={newMessageText} sendMessage={props.sendMessage}
-			onTextMessageChange={props.onTextMessageChange}/>
+			onTextMessageChange={props.onTextMessageChange} key={dialog.id}/>
 	}); 
 
 
 	let messagesElements = props.dialogsPage.messagesData.map(function(mess) {
-		return <Message message={mess.message} />
+		return <Message message={mess.message} key={mess.id}/>
 	});
 
 

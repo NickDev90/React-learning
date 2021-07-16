@@ -4,7 +4,7 @@ import Post from './Posts/Post.jsx';
 import { Field, reduxForm } from 'redux-form'; 
 import {required, maxLengthCreator} from './../../../utils/validators.js';
 import {Textarea} from './../../common/FormsControls/FormsControls.js';
-
+   
 
 const maxLength15 = maxLengthCreator(15);
 
@@ -33,7 +33,7 @@ const MyPosts = (props) => {
   console.log(props);
   
   let postsElements = props.posts.map(function(p) {
-    return <Post message={p.message} likesCount={p.likesCount} />;
+    return <Post message={p.message} likesCount={p.likesCount} key={p.id}/>;
   });
 
   // let newPostElement = React.createRef();

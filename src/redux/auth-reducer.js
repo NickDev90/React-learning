@@ -48,7 +48,7 @@ export const loginThunk = (email, password, rememberMe) => async (dispatch) => {
 	console.log(response.data);
 	if (response.data.resultCode === 0) {
 		dispatch(getAuthUserData());
-	}else {
+	}else { 
 		let errorMessage = response.data.messages;
 		dispatch(stopSubmit('login', {_error : errorMessage}));
 	}

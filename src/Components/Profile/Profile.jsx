@@ -10,12 +10,9 @@ import {Redirect} from 'react-router-dom';
 
 const Profile = (props) => {
 
-	// if (!props.isAuthed) return <Redirect to={"/login"} />
-	console.log('profile is here');
-
 	return <div>
 	  <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}
-	  isOwner={props.isOwner} savePhoto={props.savePhoto}/>
+	  isOwner={props.isOwner} savePhoto={props.savePhoto} saveProfile={props.saveProfile}/>
 
       <MyPostsContainer />
 
