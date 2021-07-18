@@ -12,7 +12,7 @@ import style from './../common/FormsControls/FormsControls.module.css';
 const maxLength20 = maxLengthCreator(20);
 
 
-const LoginForm = ({handleSubmit, error}) => {
+const LoginForm = ({handleSubmit, error, captchaUrl}) => {
 
 	return (
 			<form onSubmit={handleSubmit} className={style.form}>
@@ -22,14 +22,22 @@ const LoginForm = ({handleSubmit, error}) => {
 				</div>
 				<div>
 					<Field component={Input} name="password" type="password" 
-					placeholder='password' validate={[required, maxLength20]} />				</div>
-				<div>
-				<div>
-					<Field component={'input'} id="rememberMe" name="rememberMe" type="checkbox"/>
-					<label htmlFor="rememberMe"> Remember me </label>
+					placeholder='password' validate={[required, maxLength20]} />			
 				</div>
-
+				<div>
+					<div>
+						<Field component={'input'} id="rememberMe" name="rememberMe" type="checkbox"/>
+						<label htmlFor="rememberMe"> Remember me </label>
+					</div>
 				</div>
+				{
+					captchaUrl && 
+					<div className={style.captchaBlock}>
+						<img className={style.captchaImg} src={captchaUrl} alt=""/>
+						<Field component={Input} type="text" placeholder="enter captcha symbols" 
+						name="captcha" validate={[required]}/>
+					</div>
+				}
 				<div>
 					<button type='submit'>Login</button>
 				</div>
@@ -50,24 +58,24 @@ const LoginReduxForm = reduxForm({
 
 const Login = (props) => {
 	const onSubmit = (formData) => {
-		props.loginThunk(formData.email, formData.password, formData.rememberMe);
+		props.loginThunk(formData.email, formData.password, 
+						formData.rememberMe, formData.captcha);
+		console.log(formData)
 	}
-
-
-
 	if (props.isAuthed) {
 		return <Redirect to={`/profile`} />
 	}else {
 		return <div>
 			<h1>LOGIN</h1>
-			<LoginReduxForm onSubmit={onSubmit}/>
+			<LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl}/>
 		</div>
 	}
 
 }
 
 const mapStateToProps = (state) => ({
-	isAuthed : state.auth.isAuthed
+	isAuthed : state.auth.isAuthed,
+	captchaUrl: state.auth.captchaUrl
 })
 
 export default connect(mapStateToProps, {loginThunk})(Login);

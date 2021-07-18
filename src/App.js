@@ -1,5 +1,5 @@
 import React, {Suspense} from 'react';
-import {BrowserRouter, Route, withRouter} from 'react-router-dom';
+import {BrowserRouter, Route, withRouter, Switch, Redirect} from 'react-router-dom';
 import './App.css';
 import HeaderContainer from './Components/Header/HeaderContainer.jsx';
 import Navbar from './Components/Navbar/Navbar.jsx';
@@ -45,6 +45,11 @@ class App extends React.Component {
         <Navbar />
         
         <div className="app-wrapper-content">
+
+        <Switch>
+          <Route exact path='/' render={ () =>
+              <Redirect to={'profile'}  />} 
+          /> 
           <Route path='/profile/:userId?' render={ () => 
               <ProfileContainer /> }
           /> 
@@ -58,12 +63,19 @@ class App extends React.Component {
           <Route path='/feed' component={Feed} />
           <Route path='/music' component={Music} />
           <Route path='/settings' component={Settings} />
-          <Route path='/login' render={ () =>
+       
+          <Route path='/login/test-page' render={ () =>
+              <div>Test login page</div>
+            } />
+          <Route  path='/login' render={ () =>
               <Login />} />
-          
-    	</div>
+
+          <Route  path='*' render={ () =>
+              <div>404 page doesn't exist</div>} />
+        </Switch>
+        </div>
       </Suspense>
-      </div>   
+      </div>
    );
  }
 }
