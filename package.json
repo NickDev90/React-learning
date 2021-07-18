@@ -2,7 +2,7 @@
   "name": "my_network",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://nickdev90.github.io/React-learning",
+  "homepage": "http://nickdev90.github.io/React-learning/",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
